@@ -9,20 +9,20 @@ import { UserDto } from '../models/user'
 export class UsersService {
   constructor (@InjectRepository(UserDto) private readonly repo: Repository<UserDto>) { }
 
-  async getAllUsers (): Promise<UserDto[] | null> {
+  async getAll (): Promise<UserDto[] | null> {
     return await this.repo.find()
   }
 
-  async getUserById (id: string): Promise<UserDto | null> {
+  async getById (id: string): Promise<UserDto | null> {
     return await this.repo.findOne({ where: { id } })
   }
 
-  async setUser (user: UserDto): Promise<UserDto | null> {
+  async add (user: UserDto): Promise<UserDto | null> {
     return await this.repo.save(this.repo.create(user))
   }
 
-  async removeUser (id: string): Promise<UserDto | null> {
-    const found = await this.getUserById(id)
+  async remove (id: string): Promise<UserDto | null> {
+    const found = await this.getById(id)
     return this.repo.remove(found)
   }
 }
