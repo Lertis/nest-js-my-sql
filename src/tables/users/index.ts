@@ -1,5 +1,0 @@
-export * from './users.module'
-export * from './controllers/users.controller'
-export * from './services/users.service'
-export * from './pipes/request-body-users'
-export * from './models/user'

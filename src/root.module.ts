@@ -3,7 +3,6 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 
 import {
-  UsersModule, UserDto, UsersController,
   TableVersionsModule, TableVersions, TableVersionsController,
   RecommendationVersionsModule, RecommendationVersions, RecommendationVersionsController,
   SavedAnswersModule, SavedAnswers, SavedAnswersController
@@ -23,11 +22,10 @@ import { LoggerMiddleware } from './middlewares'
         username: configService.get('DB_USER_NAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [UserDto, TableVersions, RecommendationVersions, SavedAnswers]
+        entities: [TableVersions, RecommendationVersions, SavedAnswers]
       }),
       inject: [ConfigService]
     }),
-    UsersModule,
     TableVersionsModule,
     RecommendationVersionsModule,
     SavedAnswersModule
@@ -36,7 +34,6 @@ import { LoggerMiddleware } from './middlewares'
 export class RootModule implements NestModule {
   configure (consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes(
-      UsersController,
       TableVersionsController,
       RecommendationVersionsController,
       SavedAnswersController
