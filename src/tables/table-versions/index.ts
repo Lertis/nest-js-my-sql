@@ -1,0 +1,5 @@
+export * from './table-versions.module'
+export * from './controllers/table-versions.controller'
+export * from './services/table-versions.service'
+export * from './pipes/request-body-table-versions'
+export * from './models/table-version'

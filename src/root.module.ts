@@ -2,8 +2,12 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 
-import { UsersModule, UserDto, UsersController } from './tables'
+import {
+  UsersModule, UserDto, UsersController,
+  TableVersions, TableVersionsModule, TableVersionsController
+} from './tables'
 import { LoggerMiddleware } from './middlewares'
+
 
 @Module({
   imports: [
@@ -17,16 +21,16 @@ import { LoggerMiddleware } from './middlewares'
         username: configService.get('DB_USER_NAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [UserDto],
-        autoLoadEntities: true
+        entities: [UserDto, TableVersions]
       }),
       inject: [ConfigService]
     }),
-    UsersModule
+    UsersModule,
+    TableVersionsModule
   ]
 })
 export class RootModule implements NestModule {
   configure (consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes(UsersController)
+    consumer.apply(LoggerMiddleware).forRoutes(UsersController, TableVersionsController)
   }
 }

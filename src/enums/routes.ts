@@ -1,3 +1,4 @@
 export enum Routes {
-  USERS = 'users'
+  USERS = 'users',
+  TABLE_VERSIONS = 'table-versions'
 }

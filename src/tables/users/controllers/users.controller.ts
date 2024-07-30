@@ -2,7 +2,8 @@ import { Body, Controller, Delete, Get, Param, Post, Req, Res, UsePipes } from '
 import { Request, Response } from 'express'
 
 import { UserService } from '../services/users.service'
-import { ZodValidationPipe } from '../pipes/request-body-validation'
+
+import { ZodValidationPipe } from '../../../basic/request-body-validation'
 import { createUserSchema, UserDTO } from '../pipes/request-body-users'
 import { Routes } from '../../../enums'
 import { UserDto } from '../models/user'
