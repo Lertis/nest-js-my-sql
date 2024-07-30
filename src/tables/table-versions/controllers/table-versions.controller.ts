@@ -1,10 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Req, Res, UsePipes } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, UsePipes } from '@nestjs/common'
 import { Request, Response } from 'express'
 
 import { TableVersionsService } from '../services/table-versions.service'
 import { TableVersions } from '../models/table-version'
 import { ZodValidationPipe } from '../../../basic/request-body-validation'
-import { createTableVersionsSchema, TableVersionsDTO } from '../pipes/request-body-table-versions'
+import { tableVersionsSchema, TableVersionsDTO } from '../pipes/request-body-table-versions'
 
 import { Routes } from '../../../enums'
 
@@ -23,10 +23,17 @@ export class TableVersionsController {
   }
 
   @Post()
-  @UsePipes(new ZodValidationPipe(createTableVersionsSchema))
+  @UsePipes(new ZodValidationPipe(tableVersionsSchema))
   create (@Body() _: TableVersionsDTO, @Req() request: Request<TableVersions>, @Res() response: Response<TableVersions>) {
     response.send(request.body)
     this.tableVersionsService.create(request.body)
+  }
+
+  @Put()
+  @UsePipes(new ZodValidationPipe(tableVersionsSchema))
+  update (@Body() body: TableVersionsDTO, @Req() request: Request<TableVersions>, @Res() response: Response<TableVersions>) {
+    response.send(request.body)
+    this.tableVersionsService.updateByCriteria({ table_version: body.table_version }, request.body)
   }
 
   @Delete(':id')

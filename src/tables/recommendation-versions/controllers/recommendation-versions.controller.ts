@@ -1,10 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Req, Res, UsePipes } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, UsePipes } from '@nestjs/common'
 import { Request, Response } from 'express'
 
 import { RecommendationVersionsService } from '../services/recommendation-versions.service'
 import { RecommendationVersions } from '../models/recommendation-version'
 import { ZodValidationPipe } from '../../../basic/request-body-validation'
-import { RecommendationVersionsDTO, createRecommendationVersionsSchema } from '../pipes/request-body-recommendation-versions'
+import { RecommendationVersionsDTO, recommendationVersionsSchema } from '../pipes/request-body-recommendation-versions'
 
 import { Routes } from '../../../enums'
 
@@ -23,10 +23,17 @@ export class RecommendationVersionsController {
   }
 
   @Post()
-  @UsePipes(new ZodValidationPipe(createRecommendationVersionsSchema))
+  @UsePipes(new ZodValidationPipe(recommendationVersionsSchema))
   create (@Body() _: RecommendationVersionsDTO, @Req() request: Request<RecommendationVersions>, @Res() response: Response<RecommendationVersions>) {
     response.send(request.body)
     this.recmVersionsService.create(request.body)
+  }
+
+  @Put()
+  @UsePipes(new ZodValidationPipe(recommendationVersionsSchema))
+  update (@Body() body: RecommendationVersionsDTO, @Req() request: Request<RecommendationVersions>, @Res() response: Response<RecommendationVersions>) {
+    response.send(request.body)
+    this.recmVersionsService.updateByCriteria({ table_version: body.table_version }, request.body)
   }
 
   @Delete(':id')

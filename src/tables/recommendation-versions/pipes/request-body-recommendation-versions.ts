@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const createRecommendationVersionsSchema = z
+export const recommendationVersionsSchema = z
   .object({
     table_version: z.string(),
     content: z.string(),
@@ -8,4 +8,4 @@ export const createRecommendationVersionsSchema = z
   })
   .required()
 
-export type RecommendationVersionsDTO = z.infer<typeof createRecommendationVersionsSchema>
+export type RecommendationVersionsDTO = z.infer<typeof recommendationVersionsSchema>

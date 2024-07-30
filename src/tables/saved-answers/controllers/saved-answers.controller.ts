@@ -1,10 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Req, Res, UsePipes } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, UsePipes } from '@nestjs/common'
 import { Request, Response } from 'express'
 
 import { SavedAnswersService } from '../services/saved-answers.service'
 import { SavedAnswers } from '../models/saved-answer'
 import { ZodValidationPipe } from '../../../basic/request-body-validation'
-import { SavedAnswersDTO, createSavedAnswersSchema } from '../pipes/request-body-saved-answers'
+import { SavedAnswersDTO, savedAnswersSchema } from '../pipes/request-body-saved-answers'
 
 import { Routes, SavedAnswersRoutes } from '../../../enums'
 
@@ -33,10 +33,17 @@ export class SavedAnswersController {
   }
 
   @Post()
-  @UsePipes(new ZodValidationPipe(createSavedAnswersSchema))
+  @UsePipes(new ZodValidationPipe(savedAnswersSchema))
   create (@Body() _: SavedAnswersDTO, @Req() request: Request<SavedAnswers>, @Res() response: Response<SavedAnswers>) {
     response.send(request.body)
     this.savedAnswersService.create(request.body)
+  }
+
+  @Put()
+  @UsePipes(new ZodValidationPipe(savedAnswersSchema))
+  update (@Body() body: SavedAnswersDTO, @Req() request: Request<SavedAnswers>, @Res() response: Response<SavedAnswers>) {
+    response.send(request.body)
+    this.savedAnswersService.updateByCriteria({ table_version: body.table_version }, request.body)
   }
 
   @Delete(':id')

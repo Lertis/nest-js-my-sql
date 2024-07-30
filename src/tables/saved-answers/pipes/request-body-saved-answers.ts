@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const createSavedAnswersSchema = z
+export const savedAnswersSchema = z
   .object({
     id: z.string(),
     user_id: z.string(),
@@ -10,5 +10,5 @@ export const createSavedAnswersSchema = z
   })
   .required()
 
-export type SavedAnswersDTO = z.infer<typeof createSavedAnswersSchema>
+export type SavedAnswersDTO = z.infer<typeof savedAnswersSchema>
 

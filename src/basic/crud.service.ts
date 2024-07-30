@@ -21,6 +21,10 @@ export interface ICrudService<T> {
     id: string,
     partialEntity: QueryDeepPartialEntity<T>
   ): Promise<UpdateResult>
+  updateByCriteria (
+    criteria: FindOptionsWhere<T>,
+    partialEntity: QueryDeepPartialEntity<T>
+  ): Promise<UpdateResult>
   deleteById (id: string): Promise<DeleteResult>
   deleteByCriteria (criteria?: FindOptionsWhere<T>): Promise<void>
   checkIfExists (criteria: FindOptionsWhere<T>): Promise<boolean>
@@ -76,6 +80,14 @@ export abstract class CrudService<T> implements ICrudService<T> {
   async update (id: string, partialEntity: QueryDeepPartialEntity<T>): Promise<UpdateResult> {
     try {
       return await this.repository.update(id, partialEntity)
+    } catch (error) {
+      throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR)
+    }
+  }
+
+  async updateByCriteria (criteria: FindOptionsWhere<T>,  partialEntity: QueryDeepPartialEntity<T>) {
+    try {
+      return await this.repository.update(criteria, partialEntity)
     } catch (error) {
       throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR)
     }
