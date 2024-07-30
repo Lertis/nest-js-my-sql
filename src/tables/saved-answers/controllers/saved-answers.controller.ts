@@ -17,17 +17,17 @@ export class SavedAnswersController {
     return this.savedAnswersService.findAll()
   }
 
-  @Get(':id')
-  getById (@Param('id') id: string): Promise<SavedAnswers | null> {
-    return this.savedAnswersService.findOne({ id })
+  @Get('/id/:id')
+  getById (@Param('id') id: string): Promise<SavedAnswers[] | null> {
+    return this.savedAnswersService.findAll({ id })
   }
 
-  @Get(':id')
-  getByUserId (@Param('id') id: string): Promise<SavedAnswers | null> {
-    return this.savedAnswersService.findOne({ user_id: id })
+  @Get('user-id/:id')
+  getByUserId (@Param('id') id: string): Promise<SavedAnswers[] | null> {
+    return this.savedAnswersService.findAll({ user_id: id })
   }
 
-  @Get(':id')
+  @Get('table-version/:id')
   getByVersionId (@Param('id') id: string): Promise<SavedAnswers | null> {
     return this.savedAnswersService.findOne({ table_version: id })
   }
