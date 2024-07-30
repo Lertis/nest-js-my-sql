@@ -24,13 +24,13 @@ export class TableVersionsController {
 
   @Post()
   @UsePipes(new ZodValidationPipe(createTableVersionsSchema))
-  createUser (@Body() _: TableVersionsDTO, @Req() request: Request<TableVersions>, @Res() response: Response<TableVersions>) {
+  create (@Body() _: TableVersionsDTO, @Req() request: Request<TableVersions>, @Res() response: Response<TableVersions>) {
     response.send(request.body)
     this.tableVersionsService.create(request.body)
   }
 
   @Delete(':id')
-  removeUser (@Param('id') id: string, @Res() response: Response<string>) {
+  remove (@Param('id') id: string, @Res() response: Response<string>) {
     response.status(200)
     response.send(id)
     this.tableVersionsService.deleteByCriteria({ table_version: id })
