@@ -6,7 +6,7 @@ import { SavedAnswers } from '../models/saved-answer'
 import { ZodValidationPipe } from '../../../basic/request-body-validation'
 import { SavedAnswersDTO, createSavedAnswersSchema } from '../pipes/request-body-saved-answers'
 
-import { Routes } from '../../../enums'
+import { Routes, SavedAnswersRoutes } from '../../../enums'
 
 @Controller(Routes.SAVED_ANSWERS)
 export class SavedAnswersController {
@@ -17,17 +17,17 @@ export class SavedAnswersController {
     return this.savedAnswersService.findAll()
   }
 
-  @Get('/id/:id')
+  @Get(`/${SavedAnswersRoutes.ID}/:id`)
   getById (@Param('id') id: string): Promise<SavedAnswers[] | null> {
     return this.savedAnswersService.findAll({ id })
   }
 
-  @Get('user-id/:id')
+  @Get(`/${SavedAnswersRoutes.USER_ID}/:id`)
   getByUserId (@Param('id') id: string): Promise<SavedAnswers[] | null> {
     return this.savedAnswersService.findAll({ user_id: id })
   }
 
-  @Get('table-version/:id')
+  @Get(`/${SavedAnswersRoutes.TABLE_VERSION}/:id`)
   getByVersionId (@Param('id') id: string): Promise<SavedAnswers | null> {
     return this.savedAnswersService.findOne({ table_version: id })
   }
