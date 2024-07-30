@@ -5,10 +5,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import {
   UsersModule, UserDto, UsersController,
   TableVersionsModule, TableVersions, TableVersionsController,
-  RecommendationVersionsModule, RecommendationVersions, RecommendationVersionsController
+  RecommendationVersionsModule, RecommendationVersions, RecommendationVersionsController,
+  SavedAnswersModule, SavedAnswer, SavedAnswersController
 } from './tables'
-import { LoggerMiddleware } from './middlewares'
 
+import { LoggerMiddleware } from './middlewares'
 
 @Module({
   imports: [
@@ -22,17 +23,23 @@ import { LoggerMiddleware } from './middlewares'
         username: configService.get('DB_USER_NAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [UserDto, TableVersions, RecommendationVersions]
+        entities: [UserDto, TableVersions, RecommendationVersions, SavedAnswer]
       }),
       inject: [ConfigService]
     }),
     UsersModule,
     TableVersionsModule,
-    RecommendationVersionsModule
+    RecommendationVersionsModule,
+    SavedAnswersModule
   ]
 })
 export class RootModule implements NestModule {
   configure (consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes(UsersController, TableVersionsController, RecommendationVersionsController)
+    consumer.apply(LoggerMiddleware).forRoutes(
+      UsersController,
+      TableVersionsController,
+      RecommendationVersionsController,
+      SavedAnswersController
+    )
   }
 }

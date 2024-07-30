@@ -1,0 +1,5 @@
+export * from './saved-answers.module'
+export * from './controllers/saved-answers.controller'
+export * from './services/saved-answers.service'
+export * from './pipes/request-body-saved-answers'
+export * from './models/saved-answer'
