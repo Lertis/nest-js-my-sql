@@ -12,7 +12,7 @@ import { LoggerMiddleware } from './middlewares'
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ envFilePath: 'configs/.env' }),
+    ConfigModule.forRoot({ envFilePath: 'configs/.env', isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
