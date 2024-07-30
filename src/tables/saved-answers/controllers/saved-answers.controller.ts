@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Req, Res, UsePipes } from '
 import { Request, Response } from 'express'
 
 import { SavedAnswersService } from '../services/saved-answers.service'
-import { SavedAnswer } from '../models/saved-answer'
+import { SavedAnswers } from '../models/saved-answer'
 import { ZodValidationPipe } from '../../../basic/request-body-validation'
 import { SavedAnswersDTO, createSavedAnswersSchema } from '../pipes/request-body-saved-answers'
 
@@ -18,23 +18,23 @@ export class SavedAnswersController {
   }
 
   @Get(':id')
-  getById (@Param('id') id: string): Promise<SavedAnswer | null> {
+  getById (@Param('id') id: string): Promise<SavedAnswers | null> {
     return this.savedAnswersService.findOne({ id })
   }
 
   @Get(':id')
-  getByUserId (@Param('id') id: string): Promise<SavedAnswer | null> {
+  getByUserId (@Param('id') id: string): Promise<SavedAnswers | null> {
     return this.savedAnswersService.findOne({ user_id: id })
   }
 
   @Get(':id')
-  getByVersionId (@Param('id') id: string): Promise<SavedAnswer | null> {
+  getByVersionId (@Param('id') id: string): Promise<SavedAnswers | null> {
     return this.savedAnswersService.findOne({ table_version: id })
   }
 
   @Post()
   @UsePipes(new ZodValidationPipe(createSavedAnswersSchema))
-  create (@Body() _: SavedAnswersDTO, @Req() request: Request<SavedAnswer>, @Res() response: Response<SavedAnswer>) {
+  create (@Body() _: SavedAnswersDTO, @Req() request: Request<SavedAnswers>, @Res() response: Response<SavedAnswers>) {
     response.send(request.body)
     this.savedAnswersService.create(request.body)
   }

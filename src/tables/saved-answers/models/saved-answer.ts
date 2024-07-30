@@ -2,7 +2,7 @@ import { IsString } from 'class-validator'
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
-export class SavedAnswer {
+export class SavedAnswers {
   @PrimaryGeneratedColumn()
   @IsString()
   id: string

@@ -6,7 +6,7 @@ import {
   UsersModule, UserDto, UsersController,
   TableVersionsModule, TableVersions, TableVersionsController,
   RecommendationVersionsModule, RecommendationVersions, RecommendationVersionsController,
-  SavedAnswersModule, SavedAnswer, SavedAnswersController
+  SavedAnswersModule, SavedAnswers, SavedAnswersController
 } from './tables'
 
 import { LoggerMiddleware } from './middlewares'
@@ -23,7 +23,7 @@ import { LoggerMiddleware } from './middlewares'
         username: configService.get('DB_USER_NAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [UserDto, TableVersions, RecommendationVersions, SavedAnswer]
+        entities: [UserDto, TableVersions, RecommendationVersions, SavedAnswers]
       }),
       inject: [ConfigService]
     }),

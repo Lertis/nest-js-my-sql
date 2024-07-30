@@ -4,11 +4,11 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 
 import { CrudService } from '../../../basic'
-import { SavedAnswer } from '../models/saved-answer'
+import { SavedAnswers } from '../models/saved-answer'
 
 @Injectable()
-export class SavedAnswersService extends CrudService<SavedAnswer> {
-  constructor (@InjectRepository(SavedAnswer) protected readonly repo: Repository<SavedAnswer>) {
+export class SavedAnswersService extends CrudService<SavedAnswers> {
+  constructor (@InjectRepository(SavedAnswers) protected readonly repo: Repository<SavedAnswers>) {
     super(repo)
   }
 }
