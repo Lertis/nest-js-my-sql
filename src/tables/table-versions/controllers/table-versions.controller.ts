@@ -19,27 +19,26 @@ export class TableVersionsController {
 
   @Get(':id')
   getByVersion (@Param('id') id: string): Promise<TableVersions | null> {
-    return this.tableVersionsService.findOne({ table_version: id })
+    return this.tableVersionsService.findOne({ version: id })
   }
 
   @Post()
   @UsePipes(new ZodValidationPipe(tableVersionsSchema))
-  create (@Body() _: TableVersionsDTO, @Req() request: Request<TableVersions>, @Res() response: Response<TableVersions>) {
-    response.send(request.body)
-    this.tableVersionsService.create(request.body)
+  create (@Body() body: TableVersionsDTO) {
+    this.tableVersionsService.create(body)
   }
 
   @Put()
   @UsePipes(new ZodValidationPipe(tableVersionsSchema))
   update (@Body() body: TableVersionsDTO, @Req() request: Request<TableVersions>, @Res() response: Response<TableVersions>) {
     response.send(request.body)
-    this.tableVersionsService.updateByCriteria({ table_version: body.table_version }, request.body)
+    this.tableVersionsService.updateByCriteria({ version: body.version }, request.body)
   }
 
   @Delete(':id')
   remove (@Param('id') id: string, @Res() response: Response<string>) {
     response.status(200)
     response.send(id)
-    this.tableVersionsService.deleteByCriteria({ table_version: id })
+    this.tableVersionsService.deleteByCriteria({ version: id })
   }
 }

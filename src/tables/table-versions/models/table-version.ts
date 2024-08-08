@@ -4,8 +4,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 @Entity()
 export class TableVersions {
   @PrimaryGeneratedColumn()
-  @IsString()
-  table_version: string
+  version: string
 
   @Column()
   @IsString()

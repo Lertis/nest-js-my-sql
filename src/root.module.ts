@@ -9,6 +9,8 @@ import {
 } from './tables'
 
 import { LoggerMiddleware } from './middlewares'
+import { Logs } from './tables/recommendation-versions/models/user'
+import { UserController } from './tables/recommendation-versions/controllers/user.controller'
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import { LoggerMiddleware } from './middlewares'
         password: 'V4esSNnKZHi0',
         database: 'koyebdb',
         ssl: true,
-        entities: [TableVersions, RecommendationVersions, SavedAnswers]
+        entities: [TableVersions, RecommendationVersions, SavedAnswers, Logs]
       }),
       inject: [ConfigService]
     }),
@@ -37,7 +39,8 @@ export class RootModule implements NestModule {
     consumer.apply(LoggerMiddleware).forRoutes(
       TableVersionsController,
       RecommendationVersionsController,
-      SavedAnswersController
+      SavedAnswersController,
+      UserController
     )
   }
 }

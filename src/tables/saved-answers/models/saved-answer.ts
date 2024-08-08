@@ -4,7 +4,6 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 @Entity()
 export class SavedAnswers {
   @PrimaryGeneratedColumn()
-  @IsString()
   id: string
 
   @Column()
