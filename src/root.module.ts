@@ -16,12 +16,13 @@ import { LoggerMiddleware } from './middlewares'
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        type: 'mysql',
-        host: configService.get('DB_HOST_NAME'),
-        port: configService.get('DB_PORT'),
-        username: configService.get('DB_USER_NAME'),
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_NAME'),
+        type: 'postgres',
+        host: 'ep-falling-wind-a2ll0fax.eu-central-1.pg.koyeb.app',
+        port: 5432,
+        username: 'koyeb-adm',
+        password: 'V4esSNnKZHi0',
+        database: 'koyebdb',
+        ssl: true,
         entities: [TableVersions, RecommendationVersions, SavedAnswers]
       }),
       inject: [ConfigService]
