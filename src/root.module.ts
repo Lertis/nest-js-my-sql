@@ -15,7 +15,7 @@ import { LoggerMiddleware } from './middlewares'
     ConfigModule.forRoot({ envFilePath: 'configs/.env', isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
+      useFactory: () => ({
         type: 'postgres',
         host: 'ep-falling-wind-a2ll0fax.eu-central-1.pg.koyeb.app',
         port: 5432,
